@@ -1,3 +1,16 @@
-# AnA - BnB
+# AnA-BnB
+## Adam and Adam's AirBnB
 
-## First commit taylor branch
+## Project Description
+
+## Description of the command interpreter
+
+### Starting the command interpreter
+
+### Using the command interpereter
+
+### Example commands
+
+## File Structure
+
+
