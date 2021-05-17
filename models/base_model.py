@@ -27,11 +27,11 @@ class BaseModel:
 
     @property
     def created_at(self):
-        return BaseClass.formatDate(self.__created_at)
+        return self.__created_at
 
     @property
     def updated_at(self):
-        return BaseClass.formatDate(self.__updated_at)
+        return self.__updated_at
 
     def save(self):
         self.__updated_at = datetime.now()
@@ -39,7 +39,11 @@ class BaseModel:
     def to_dict(self):
         d = dict(self.__dict__)
         t = "_{}__".format(type(self).__name__)
-        d = dict(map(lambda k: (k.replace(t, ""), d[k]), d))
+        d = dict(
+            map(lambda k: (k.replace(t, ""),
+                BaseModel.formatDate(d[k])
+                if type(d[k]).__name__ == "datetime.datetime"
+                else d[k]), d))
         d["__class__"] = type(self).__name__
         return d
 
