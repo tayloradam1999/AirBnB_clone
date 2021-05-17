@@ -15,7 +15,7 @@ class BaseModel:
 
     @staticmethod
     def formatDate(date):
-        return date.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        return str(date.strftime("%Y-%m-%dT%H:%M:%S.%f"))
 
     @property
     def id(self):
@@ -33,6 +33,10 @@ class BaseModel:
     def updated_at(self):
         return self.__updated_at
 
+    @updated_at.setter
+    def updated_at(self, value):
+        self.__updated_at = value
+
     def save(self):
         self.__updated_at = datetime.now()
 
@@ -41,9 +45,7 @@ class BaseModel:
         t = "_{}__".format(type(self).__name__)
         d = dict(
             map(lambda k: (k.replace(t, ""),
-                BaseModel.formatDate(d[k])
-                if type(d[k]).__name__ == "datetime.datetime"
-                else d[k]), d))
+                str(d[k])), d))
         d["__class__"] = type(self).__name__
         return d
 
