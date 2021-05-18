@@ -2,7 +2,7 @@
 """ Module for BaseModel class """
 import uuid
 from datetime import datetime
-
+import storage
 
 class BaseModel:
 
@@ -62,6 +62,7 @@ class BaseModel:
 
     def save(self):
         self.__updated_at = datetime.now()
+        storage.save(self)
 
     def to_dict(self):
         d = dict(self.__dict__)
