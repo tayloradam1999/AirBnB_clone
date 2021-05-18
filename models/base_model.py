@@ -17,6 +17,9 @@ class BaseModel:
                 del kwargs["__class__"]
             if "__created_at" in kwargs.keys():
                 del kwargs["__created_at"]
+            if "id" in kwargs.keys():
+                self.__id = kwargs["id"]
+                del kwargs["id"]
             for k in kwargs:
                 if BaseModel.checkDate(kwargs[k]):
                     kwargs[k] = datetime.strptime(
