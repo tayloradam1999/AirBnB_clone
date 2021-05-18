@@ -8,10 +8,30 @@ class BaseModel:
 
     """ BaseModel class """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         self.__id = str(uuid.uuid4())
         self.__created_at = datetime.now()
         self.__updated_at = datetime.now()
+        if kwargs is not None:
+            if "__class__" in kwargs.keys():
+                del kwargs["__class__"]
+            if "__created_at" in kwargs.keys():
+                del kwargs["__created_at"]
+            for k in kwargs:
+                if BaseModel.checkDate(kwargs[k]):
+                    kwargs[k] = datetime.strptime(
+                        kwargs[k],
+                        "%Y-%m-%dT%H:%M:%S.%f")
+            self.__dict__.update(kwargs)
+
+    @staticmethod
+    def checkDate(string):
+        """ Checks if string is a date """
+        try:
+            datetime.strptime(string, "%Y-%m-%dT%H:%M:%S.%f")
+            return True
+        except ValueError:
+            return False
 
     @staticmethod
     def formatDate(date):
@@ -51,4 +71,4 @@ class BaseModel:
 
     def __str__(self):
         t = "[{}] ({}) {}"
-        return t.format(type(self).__name__, self.id, self.__dict__)
+        return t.format(type(self).__name__, self.id, self.to_dict())
