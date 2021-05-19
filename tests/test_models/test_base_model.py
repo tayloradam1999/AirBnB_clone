@@ -40,9 +40,9 @@ class TestBase(unittest.TestCase):
         """ Unittesting save method """
         my_save = my_model.updated_at
         my_model.save()
-        my_new_save = my_model.updated_at
-        self.assertNotEqual(my_save, my_new_save)
-
+        self.assertTrue(os.path.exists("HBNB_jsonfile.json"))
+        my_save2 = my_model.updated_at
+        self.assertNotEqual(my_save, my_save2)
 
 if __name__ == '__main__':
     unittest.main()
