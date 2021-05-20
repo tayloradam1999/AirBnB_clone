@@ -1,3 +1,7 @@
+#!/susr/bin/python3
+"""
+    Command interpreter for AnA-BnB
+"""
 import cmd
 import sys
 

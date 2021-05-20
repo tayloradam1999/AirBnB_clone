@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" 
+"""
     Module for FileStorage class
     JSON -> file serialization and file -> JSON deserialization
 """
@@ -10,9 +10,10 @@ from models.base_model import BaseModel
 
 
 class FileStorage:
+
     """ Manages read/write and serialization for JSON file store """
-    __file_path ="HBNB_jsonfile.json"
-    __objects = dict() #keyed with <class name>.id
+    __file_path = "HBNB_jsonfile.json"
+    __objects = dict()  # keyed with <class name>.id
 
     def all(self):
         """ Returns dict of __objects """
@@ -33,4 +34,3 @@ class FileStorage:
         if os.path.exists(FileStorage.__file_path):
             with open(FileStorage.__file_path, 'r') as fp:
                 FileStorage.__objects = json.load(fp)
-
