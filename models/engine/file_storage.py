@@ -24,9 +24,16 @@ class FileStorage:
         k = "{}.{}".format(type(obj).__name__, obj.id)
         if k not in FileStorage.__objects.keys():
             FileStorage.__objects[k] = obj
-    
+
     def remove(self, key):
-        del self.__objects[key]
+        """Removes instance and saves to json file"""
+        del FileStorage.__objects[key]
+        FileStorage.save(self)
+
+    def update(self, obj, key, value):
+        """Updates an instance and saves to json file"""
+        setattr(obj, key, value)
+        FileStorage.save(self)
 
     def save(self):
         """ Serialize objects to JSON file in __file_path """
@@ -46,4 +53,3 @@ class FileStorage:
                     if k not in FileStorage.__objects.keys():
                         obj_data = objs[k]
                         FileStorage.__objects[k] = BaseModel(**obj_data)
-
