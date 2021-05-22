@@ -57,5 +57,5 @@ class FileStorage:
                         cls = FileStorage.__models[obj_data["__class__"]]
                         FileStorage.__objects[k] = cls(**obj_data)
         else:
-            fp = open(FileStorage.__file_path, 'w')
-            fp.close()
+            with open(FileStorage.__file_path, 'w') as fp:
+                fp.write("{}")
