@@ -19,6 +19,9 @@ class User(BaseModel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+    def to_dict(self):
+        return super(User, self).to_dict()
+
     @property
     def email(self):
         return self.__email

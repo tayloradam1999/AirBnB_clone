@@ -68,7 +68,7 @@ class BaseModel:
         d = dict(self.__dict__)
         t = "_{}__".format(type(self).__name__)
         d = dict(
-            map(lambda k: (k.replace(t, ""),
+            map(lambda k: (k.replace(t, "").replace("_BaseModel__", ""),
                 str(d[k])), d))
         d["__class__"] = type(self).__name__
         return d

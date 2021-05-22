@@ -7,13 +7,15 @@
 import json
 import os
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
 
     """ Manages read/write and serialization for JSON file store """
-    __file_path = "HBNB_jsonfile.json"
+    __file_path = "file.json"
     __objects = dict()  # keyed with <class name>.id
+    __models = dict({("BaseModel", BaseModel), ("User", User)})
 
     def all(self):
         """ Returns dict of __objects """
@@ -52,4 +54,5 @@ class FileStorage:
                     # insert to __objects if not exists
                     if k not in FileStorage.__objects.keys():
                         obj_data = objs[k]
-                        FileStorage.__objects[k] = BaseModel(**obj_data)
+                        cls = FileStorage.__models[obj_data["__class__"]]
+                        FileStorage.__objects[k] = cls(**obj_data)
