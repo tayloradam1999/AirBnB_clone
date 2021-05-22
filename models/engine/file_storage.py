@@ -6,16 +6,14 @@
 
 import json
 import os
-from models.base_model import BaseModel
-from models.user import User
-
+from models.models import model_classes 
 
 class FileStorage:
 
     """ Manages read/write and serialization for JSON file store """
     __file_path = "file.json"
     __objects = dict()  # keyed with <class name>.id
-    __models = dict({("BaseModel", BaseModel), ("User", User)})
+    __models = model_classes
 
     def all(self):
         """ Returns dict of __objects """
@@ -42,6 +40,8 @@ class FileStorage:
         d = dict()
         for k in FileStorage.__objects.keys():
             d[k] = FileStorage.__objects[k].to_dict()
+        print("SAVE")
+        print(d)
         with open(FileStorage.__file_path, 'w') as fp:
             json.dump(d, fp)
 
@@ -56,3 +56,6 @@ class FileStorage:
                         obj_data = objs[k]
                         cls = FileStorage.__models[obj_data["__class__"]]
                         FileStorage.__objects[k] = cls(**obj_data)
+        else:
+            fp = open(FileStorage.__file_path, 'w')
+            fp.close()

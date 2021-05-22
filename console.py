@@ -7,9 +7,8 @@ import sys
 import os
 import inspect
 import shlex
-from models.base_model import BaseModel
+from models.models import model_classes
 import models
-
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
@@ -32,10 +31,10 @@ class HBNBCommand(cmd.Cmd):
             and prints the id"""
         if arg is None or arg == "":
             print ("** class name missing **")
-        elif arg != "BaseModel":
+        elif arg not in model_classes.keys():
             print ("** class doesn't exist **")
         else:
-            my_model = BaseModel()
+            my_model = model_classes[arg]()
             my_model.save()
             print (my_model.id)
 
@@ -44,7 +43,7 @@ class HBNBCommand(cmd.Cmd):
             on the class name and id"""
         if arg is None or arg == "":
             print ("** class name missing **")
-        elif arg.split(" ")[0] != "BaseModel":
+        elif arg.split(" ")[0] not in model_classes.keys():
             print ("** class doesn't exist **")
         elif " " not in arg:
             print ("** instance id missing **")
@@ -59,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
             (save the change into the JSON file)"""
         if arg is None or arg == "":
             print ("** class name missing **")
-        elif arg.split(" ")[0] != "BaseModel":
+        elif arg.split(" ")[0] not in model_classes.keys():
             print ("** class doesn't exist **")
         elif " " not in arg:
             print ("** instance id missing **")
@@ -71,7 +70,7 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, arg):
         """Prints all string representation of all instances
             based or not on the class name"""
-        if arg != "BaseModel" and arg != "":
+        if arg not in model_classes.keys() and arg != "":
             print ("** class doesn't exist **")
         else:
             print (models.storage.all())
@@ -82,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
         a = shlex.split(arg)
         if len(a) == 0:
             print ("** class name missing **")
-        elif a[0] != "BaseModel":
+        elif a[0] not in model_classes.keys():
             print ("** class doesn't exist **")
         elif len(a) < 2:
             print ("** instance id missing **")
@@ -96,5 +95,3 @@ class HBNBCommand(cmd.Cmd):
             k = "{}.{}".format(a[0], a[1])
             models.storage.update(models.storage.all()[k], a[2], a[3])
 
-if __name__ == '__main__':
-    HBNBCommand().cmdloop()
