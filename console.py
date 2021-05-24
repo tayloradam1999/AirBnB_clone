@@ -10,6 +10,7 @@ import shlex
 from models.models import model_classes
 import models
 
+
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
     file = None
@@ -95,3 +96,38 @@ class HBNBCommand(cmd.Cmd):
             k = "{}.{}".format(a[0], a[1])
             models.storage.update(models.storage.all()[k], a[2], a[3])
 
+    def default(self, arg):
+        if "." in arg and arg.split(".")[0] in model_classes.keys():
+            cls = arg.split(".")[0]
+            method = arg[len(cls) + 1:]
+            action = method.split("(")[0]
+            params = method[method.find("(") + 1:method.find(")")]
+            if action == "all":
+                self.do_all(cls)
+            elif action == "show":
+                self.do_show(cls + " " + params[1:-1])
+            elif action == "destroy":
+                self.do_destroy(cls + " " + params[1:-1])
+            elif action == "update":
+                # get parameters as list
+                p = params.split(", ")
+                # strip quotes from id and attrib within parenthesis
+                p_id = p[0][1:-1]
+                p_attrib = p[1][1:-1]
+                # Checks if value is in quotes
+                p_val = p[2][1:-1] if p[2][0] == "\"" else p[2]
+                c = cls + " " + p_id + " " + p_attrib + " " + p_val
+                self.do_update(c)
+            elif action == "count":
+                print(
+                    len(list(filter(
+                        lambda k:
+                        k.split(".")[0] == cls, models.storage.all())))
+                )
+            else:
+                super().default(arg)
+        else:
+            super().default(arg)
+
+if __name__ == "__main__":
+    HBNBCommand().cmdloop()
