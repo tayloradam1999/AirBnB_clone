@@ -8,6 +8,7 @@ from models.state import State
 from models.city import City
 from models.place import Place
 from models.review import Review
+from models.amenity import Amenity
 
 model_classes = dict({
     ("BaseModel", BaseModel),
@@ -15,4 +16,5 @@ model_classes = dict({
     ("State", State),
     ("City", City),
     ("Place", Place),
+    ("Amenity", Amenity),
     ("Review", Review)})
