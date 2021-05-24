@@ -6,7 +6,8 @@
 
 import json
 import os
-from models.models import model_classes 
+from models.models import model_classes
+
 
 class FileStorage:
 
@@ -40,8 +41,6 @@ class FileStorage:
         d = dict()
         for k in FileStorage.__objects.keys():
             d[k] = FileStorage.__objects[k].to_dict()
-        print("SAVE")
-        print(d)
         with open(FileStorage.__file_path, 'w') as fp:
             json.dump(d, fp)
 
