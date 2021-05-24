@@ -46,4 +46,4 @@ We have our console inside of the home directory, and within the home directory,
 
 'engine' is a directory that holds 'file_storage.py' which holds a class that serializes instances to a JSON file and deserializes JSON files to instances.
 
-Now, if we go back to our home directory, we can then go into 'tests' which is a directory that holds all of our unittesting files.Unittesting is important, never forget to unittest.
+Now, if we go back to our home directory, we can then go into 'tests' which is a directory that holds ANOTHER directory called 'test_models', which holds all of our unittesting files. Unittesting is important, never forget to unittest.
