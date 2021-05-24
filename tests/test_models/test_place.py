@@ -56,9 +56,9 @@ class TestPlace(unittest.TestCase):
         self.assertTrue(isinstance(place1.max_guest, int))
 
     def test_price_by_night(self):
-        """ Make sure price_by_night is a float """
-        self.assertTrue(isinstance(Place.price_by_night, float))
-        self.assertTrue(isinstance(place1.price_by_night, float))
+        """ Make sure price_by_night is a integer """
+        self.assertTrue(isinstance(Place.price_by_night, int))
+        self.assertTrue(isinstance(place1.price_by_night, int))
 
     def test_latitude(self):
         """ Make sure latitude is a float """
@@ -73,4 +73,4 @@ class TestPlace(unittest.TestCase):
     def test_amenity_ids(self):
         """ Make sure amenity_ids is a list """
         self.assertTrue(isinstance(Place.amenity_ids, list))
-        self.assertTrue(isinstance(place1.amentity_id, list))
+        self.assertTrue(isinstance(place1.amenity_ids, list))
