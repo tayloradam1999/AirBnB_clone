@@ -6,6 +6,7 @@ from models.base_model import BaseModel
 
 
 class Review(BaseModel):
+
     """
         Info on AirBnB Reviews
         Public class attributes:
@@ -13,4 +14,12 @@ class Review(BaseModel):
             user_id: string - empty string: it will be the User.id
             text: string - empty string
     """
-    pass
+    place_id = ""
+    user_id = ""
+    text = ""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def to_dict(self):
+        return super(Review, self).to_dict()

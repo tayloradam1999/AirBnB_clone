@@ -12,4 +12,10 @@ class State(BaseModel):
         Public class attributes:
             name: string - empty string
     """
-    pass
+    name = ""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def to_dict(self):
+        return super(State, self).to_dict()
