@@ -48,6 +48,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif " " not in arg:
             print("** instance id missing **")
+        # arg.replace called to change space to '.' for __objects key
+        # e.g.: arg = 'User 123" -> 'User.123'
         elif arg.replace(" ", ".") not in models.storage.all():
             print("** no instance found **")
         else:
@@ -97,10 +99,16 @@ class HBNBCommand(cmd.Cmd):
             models.storage.update(models.storage.all()[k], a[2], a[3])
 
     def default(self, arg):
+        """ Converts valid <cls>.<action>() to arg \
+                string to pass to existing 'do_' method """
         if "." in arg and arg.split(".")[0] in model_classes.keys():
+            # class name before the "."
             cls = arg.split(".")[0]
+            # method = everything in string that is not class name
             method = arg[len(cls) + 1:]
+            # action = everything in method before the first "("
             action = method.split("(")[0]
+            # params = everything between parenthesis
             params = method[method.find("(") + 1:method.find(")")]
             if action == "all":
                 self.do_all(cls)
@@ -109,6 +117,7 @@ class HBNBCommand(cmd.Cmd):
             elif action == "destroy":
                 self.do_destroy(cls + " " + params[1:-1])
             elif action == "update":
+                # TODO: implement dict conversion for advanced task 16
                 # get parameters as list
                 p = params.split(", ")
                 # strip quotes from id and attrib within parenthesis
