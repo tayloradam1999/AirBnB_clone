@@ -38,8 +38,8 @@ help create
 ```
 
 ## File Structure
-The file structure of this program is quite simple.
-We have our console inside of the home directory, and within the home directory, there are two parent directories called 'models' and 'tests'.
-'models' holds files for all of the classes that will be used within our program. Also, within this directory, there is another parent directory called 'engine'.
-'engine' is a directory that holds 'file_storage.py' which holds a class that serializes instances to a JSON file and deserializes JSON files to instances.
-Now, if we go back to our home directory, we can then go into 'tests' which is a directory that holds all of our unittesting files.Unittesting is important, never forget to unittest.
+The file structure of this program is quite simple.\n
+We have our console inside of the home directory, and within the home directory, there are two parent directories called 'models' and 'tests'.\n
+'models' holds files for all of the classes that will be used within our program. Also, within this directory, there is another parent directory called 'engine'.\n
+'engine' is a directory that holds 'file_storage.py' which holds a class that serializes instances to a JSON file and deserializes JSON files to instances.\n
+Now, if we go back to our home directory, we can then go into 'tests' which is a directory that holds all of our unittesting files.Unittesting is important, never forget to unittest.\n
