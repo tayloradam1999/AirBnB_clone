@@ -53,7 +53,10 @@ class FileStorage:
                     # insert to __objects if not exists
                     if k not in FileStorage.__objects.keys():
                         obj_data = objs[k]
+                        # Get the class type to create based on __class__
                         cls = FileStorage.__models[obj_data["__class__"]]
+                        # Call constructor for new object to add to __objects
+                        # ** used to pass dict to **kwargs in init
                         FileStorage.__objects[k] = cls(**obj_data)
         else:
             with open(FileStorage.__file_path, 'w') as fp:
